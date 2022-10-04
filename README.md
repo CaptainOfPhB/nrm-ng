@@ -1,6 +1,6 @@
 # nrs
 
-**N**ode **R**egistry **S**elector, alternative to `nrm`.
+<ins>**N**</ins>ode <ins>**R**</ins>egistry <ins>**S**</ins>elector, alternative to `nrm`.
 
 ## Installation
 
