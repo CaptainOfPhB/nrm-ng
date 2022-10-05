@@ -1,0 +1,9 @@
+.vscode
+.idea
+
+.DS_Store
+
+node_moudles
+
+*.log
+*.error
