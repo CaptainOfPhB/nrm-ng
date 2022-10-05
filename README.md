@@ -1,5 +1,7 @@
 # nrs
 
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
 <ins>**N**</ins>PM <ins>**r**</ins>egistry <ins>**s**</ins>elector, alternative to [`nrm`](https://github.com/Pana/nrm).
 
 ## Installation
