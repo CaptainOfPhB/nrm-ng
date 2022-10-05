@@ -1,6 +1,6 @@
 # nrs
 
-<ins>**N**</ins>ode <ins>**R**</ins>egistry <ins>**S**</ins>elector, alternative to [`nrm`](https://github.com/Pana/nrm).
+<ins>**N**</ins>PM <ins>**r**</ins>egistry <ins>**s**</ins>elector, alternative to [`nrm`](https://github.com/Pana/nrm).
 
 ## Installation
 
