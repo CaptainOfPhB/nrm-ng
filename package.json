@@ -4,7 +4,8 @@
   "description": "A tool to easy switch NPM registry",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "husky install",
+    "test": "echo \"Error: no test specified\""
   },
   "keywords": [
     "NPM",
@@ -21,11 +22,6 @@
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "prepare-commit-msg": "exec < /dev/tty && npx cz --hook || true"
     }
   },
   "dependencies": {
