@@ -18,10 +18,23 @@
   ],
   "author": "CaptainOfPhB <captainofphb@gmail.com>",
   "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && npx cz --hook || true"
+    }
+  },
   "dependencies": {
     "cac": "^6.7.14"
   },
   "devDependencies": {
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.1",
     "typescript": "^4.8.4",
     "vite": "^3.1.4"
   }
