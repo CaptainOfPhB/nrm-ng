@@ -2,10 +2,11 @@
   "name": "nrs",
   "version": "1.0.0",
   "description": "A tool to easy switch NPM registry",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node-esm src/index.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\""
   },
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "cac": "^6.7.14",
+    "node-fetch": "^3.2.10",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
