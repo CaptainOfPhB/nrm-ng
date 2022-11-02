@@ -1,8 +1,7 @@
 {
   "name": "nrs",
   "version": "1.0.0",
-  "description": "A tool to easy switch NPM registry",
-  "type": "module",
+  "description": "A tool to easy switch npm registry",
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
@@ -11,14 +10,13 @@
     "test": "echo \"Error: no test specified\""
   },
   "keywords": [
-    "NPM",
     "npm",
     "nrm",
     "nrs",
     "registry",
-    "NPM registry",
-    "NPM registry manager",
-    "NPM registry selector"
+    "npm registry",
+    "npm registry manager",
+    "npm registry selector"
   ],
   "author": "CaptainOfPhB <captainofphb@gmail.com>",
   "license": "MIT",
@@ -29,6 +27,7 @@
   },
   "dependencies": {
     "cac": "^6.7.14",
+    "commander": "^9.4.1",
     "node-fetch": "^3.2.10",
     "ts-node": "^10.9.1"
   },

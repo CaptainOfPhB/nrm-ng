@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@types/node': ^18.8.3
   cac: ^6.7.14
+  commander: ^9.4.1
   commitizen: ^4.2.5
   conventional-changelog-cli: ^2.2.2
   cz-conventional-changelog: ^3.3.0
@@ -13,6 +14,7 @@ specifiers:
 
 dependencies:
   cac: 6.7.14
+  commander: 9.4.1
   node-fetch: 3.2.10
   ts-node: 10.9.1_xtdkmayvpbwqd3kc4kczaw2zvm
 
@@ -375,6 +377,11 @@ packages:
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: true
+
+  /commander/9.4.1:
+    resolution: {integrity: sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==}
+    engines: {node: ^12.20.0 || >=14}
+    dev: false
 
   /commitizen/4.2.5:
     resolution: {integrity: sha512-9sXju8Qrz1B4Tw7kC5KhnvwYQN88qs2zbiB8oyMsnXZyJ24PPGiNM3nHr73d32dnE3i8VJEXddBFIbOgYSEXtQ==}
