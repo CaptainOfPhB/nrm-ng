@@ -1,8 +1,9 @@
-import { Command } from 'commander';
-import packageJson from '../package.json';
+const { Command } = require('commander')
 
-import { exampleUsage } from './helper';
-import { onAdd, onDelete, onList, onTest, onUse } from './actions';
+const packageJson = require('../package.json');
+
+const { exampleUsage } = require('./helper')
+const { onAdd, onDelete, onList, onTest, onUse } = require('./actions')
 
 const program = new Command();
 
