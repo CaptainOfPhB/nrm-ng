@@ -1,11 +1,9 @@
-const { command } = require('execa')
+const { getCurrentRegistry } = require('./helper');
 
-function onList() {
-  command('npm config get registry')
-    .then(output => {
-      console.log(output);
-      console.log(output.stdout);
-    })
+async function onList() {
+  const registry = await getCurrentRegistry();
+  if (!registry) return;
+  console.log(registry);
 }
 
 function onUse() {
@@ -35,4 +33,4 @@ module.exports = {
   onDelete,
   onUpdate,
   onTest,
-}
+};
