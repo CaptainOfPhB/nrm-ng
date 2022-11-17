@@ -9,12 +9,14 @@ specifiers:
   execa: 5.1.1
   husky: ^8.0.1
   node-fetch: ^3.2.10
+  picocolors: ^1.0.0
 
 dependencies:
   cac: 6.7.14
   commander: 9.4.1
   execa: 5.1.1
   node-fetch: 3.2.10
+  picocolors: 1.0.0
 
 devDependencies:
   commitizen: 4.2.5
@@ -1527,6 +1529,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
     optional: true
+
+  /picocolors/1.0.0:
+    resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
+    dev: false
 
   /picomatch/2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
