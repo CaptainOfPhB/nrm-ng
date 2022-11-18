@@ -1,13 +1,11 @@
-const { getCurrentRegistry } = require('./helper');
+const { printAllRegistries } = require('./helpers');
 
 async function onList() {
-  const registry = await getCurrentRegistry();
-  if (!registry) return;
-  console.log(registry);
+  printAllRegistries();
 }
 
-function onUse() {
-  console.log('onUse');
+function onUse(name, scope) {
+  console.log(name, scope)
 }
 
 function onAdd(name, registry) {
