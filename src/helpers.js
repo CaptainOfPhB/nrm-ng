@@ -1,6 +1,12 @@
+const {
+  readFile,
+  isLowerCaseEqual,
+  geneDashLine,
+  printError,
+  printMessages,
+} = require('./utils');
 const { command } = require('execa');
 const { bold, green } = require('picocolors');
-const { readFile, isLowerCaseEqual } = require('./utils');
 const { NRS_CONFIG_FILE_PATH, REGISTRIES } = require('./constants');
 
 function exampleUsage(commands) {
@@ -30,7 +36,7 @@ async function printAllRegistries() {
   const registries = await getAllRegistries();
   const currentRegistry = await getCurrentRegistry();
   const registryNames = Object.keys(registries);
-  const dashLineLength = Math.max(...registryNames.map(key => key.length)) + 3;
+  const dashLineLength = Math.max(...registryNames.map(key => key.length)) + 5;
 
   const messages = registryNames.map(registryName => {
     const registry = registries[registryName];
