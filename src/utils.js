@@ -19,6 +19,12 @@ function printError(error) {
   console.log(`${bgRed(white(' ERROR '))} ${red(error)}`);
 }
 
+function printMessages(messages) {
+  for (const message of messages) {
+    console.log(message);
+  }
+}
+
 function isLowerCaseEqual(str1, str2) {
   if (str1 && str2) {
     return str1.toLowerCase() === str2.toLowerCase();
@@ -45,7 +51,8 @@ function tryRun(callback) {
 async function readFile(file) {
   return new Promise(resolve => {
     if (!fs.existsSync(file)) {
-      exit(`File ${file} does not exist`);
+      resolve({});
+      return;
     }
     tryRun(() => {
       const content = ini.parse(fs.readFileSync(file, 'utf-8'));
@@ -56,8 +63,12 @@ async function readFile(file) {
 
 async function writeFile(path, content) {
   return new Promise(resolve => tryRun(() => {
-    fs.writeFileSync(path, ini.stringify(content));
-    resolve();
+    fs.writeFile(path, ini.stringify(content), error => {
+      if (error) {
+        exit(error);
+      }
+      resolve(true);
+    });
   }));
 }
 
@@ -68,6 +79,7 @@ module.exports = {
   readFile,
   printSuccess,
   printError,
+  printMessages,
   geneDashLine,
   isLowerCaseEqual,
 }
