@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-import { Command, Option } from 'commander';
-
-import * as actions from './actions';
-import * as helpers from './helpers';
+const actions = require('./actions');
+const helpers = require('./helpers');
+const { Command, Option } = require('commander');
 
 const program = new Command();
 

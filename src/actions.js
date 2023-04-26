@@ -1,6 +1,6 @@
-import { printAllRegistries } from './helpers'
-import fs from 'fs'
-import ini from 'ini'
+const fs = require('fs');
+const ini = require('ini');
+const { printAllRegistries, getRemoteRegistries } = require('./helpers.js');
 
 function onInit() {
   // TODO: create .nrs and fetch the latest registries, then store them
@@ -8,19 +8,19 @@ function onInit() {
 }
 
 async function onList() {
-  // printAllRegistries();
-  fs.writeFileSync('xxx', ini.stringify({ internal_registry: { taobao: 'asdfasd' } }));
+  const registry = await getRemoteRegistries();
+
 }
 
-function onUse(name: string, scope: string) {
+function onUse(name, scope) {
   console.log(name, scope)
 }
 
-function onAdd(name: string, registry: string) {
+function onAdd(name, registry) {
   console.log(name, registry);
 }
 
-function onDelete(name: string) {
+function onDelete(name) {
   console.log('onDelete', name);
 }
 
@@ -32,7 +32,7 @@ function onTest() {
   console.log('onTest');
 }
 
-export {
+module.exports = {
   onList,
   onUse,
   onAdd,
