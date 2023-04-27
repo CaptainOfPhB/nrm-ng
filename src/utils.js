@@ -8,12 +8,12 @@ function geneDashLine(message, length) {
   return ` ${dim(dashLine)} `;
 }
 
-function printSuccess(message, keyword = 'SUCCESS') {
-  console.log(`${bgGreen(white(` ${keyword} `))} ${green(message)}`);
+function printSuccess(message) {
+  console.log(`${bgGreen(white(' SUCCESS '))} ${green(message)}`);
 }
 
-function printError(error, keyword = 'ERROR') {
-  console.log(`${bgRed(white(` ${keyword} `))} ${red(error)}`);
+function printError(error) {
+  console.log(`${bgRed(white(' ERROR '))} ${red(error)}`);
   process.exit(0);
 }
 
@@ -33,16 +33,13 @@ function isLowerCaseEqual(str1, str2) {
 
 function exitWhenFileExist() {
   if (fs.existsSync(NRS_CONFIG_FILE_PATH)) {
-    printError('The nrs has already been initialized.', 'ERROR_FILE_EXISTED');
+    printError('The nrs has already been initialized.');
   }
 }
 
 function exitWhenFileNotExist() {
   if (!fs.existsSync(NRS_CONFIG_FILE_PATH)) {
-    printError(
-      `File ${underline(NRS_CONFIG_FILE_PATH)} does not exist. Do you forget to run ${underline('nrm init')}?`,
-      'ERROR_FILE_NOT_EXISTED'
-    );
+    printError(`File ${underline(NRS_CONFIG_FILE_PATH)} does not exist. Do you forget to run ${underline('nrm init')}?`);
   }
 }
 
