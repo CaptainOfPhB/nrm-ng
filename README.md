@@ -4,6 +4,10 @@
 
 A <ins>**n**</ins>pm <ins>**r**</ins>egistry <ins>**s**</ins>elector to easy switch npm registry, alternative to [`nrm`](https://github.com/Pana/nrm).
 
+## Features
+
+The internal registry list is hosted on [vercel](https://vercel.com/), so you can easily update your local registry list by `nrs update` command instead of install a new version, if the remote list has any change.
+
 ## Installation
 
 ```bash
@@ -49,10 +53,11 @@ Refer to [`registries.json`](./registries.json).
 
 ## To-do
 
-- [ ] Using serverless to host `registries.json` on vercel
+- [x] Using serverless to host `registries.json` on vercel
 - [ ] Using `nrm update` to sync the latest registry list
 - [ ] Add badges to the `README.md`
 - [ ] [travis-ci](https://travis-ci.org/)
+- [ ] eslint and prettier
 
 ## License
 
