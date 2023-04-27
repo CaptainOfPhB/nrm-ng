@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "scripts": {
     "prepare": "husky install",
-    "start": "node src/index.js",
+    "dev": "NODE_ENV=development node src/index.js",
     "build": "npx swc src -d lib",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
