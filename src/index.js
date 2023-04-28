@@ -15,6 +15,11 @@ program
   .description('Initialize nrs')
 
 program
+  .command('current')
+  .action(actions.onCurrent)
+  .description('Show current registry in use')
+
+program
   .command('ls')
   .action(actions.onList)
   .description('List all registries')

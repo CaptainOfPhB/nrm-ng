@@ -42,6 +42,11 @@ async function onList() {
   printMessages(messages);
 }
 
+async function onCurrent() {
+  const currentRegistry = await getCurrentRegistry();
+  printSuccess(`The current registry is ${underline(currentRegistry)}.`);
+}
+
 async function onUse(registryName) {
   const { registryList, registryNameList } = getRegistryList();
   if (!registryNameList.includes(registryName)) {
@@ -95,6 +100,7 @@ function onTest() {
 module.exports = {
   onInit,
   onList,
+  onCurrent,
   onUse,
   onAdd,
   onDelete,
