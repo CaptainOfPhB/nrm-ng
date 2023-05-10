@@ -20,6 +20,9 @@ pnpm add -g nrs
 # list all registries
 nrs ls
 
+# show the current registry
+nrm current
+
 # add a registry
 nrs add gh https://npm.pkg.github.com
 
@@ -46,18 +49,9 @@ Refer to [`registries.json`](./registries.json).
   "yarn": "https://registry.yarnpkg.com/",
   "tencent": "https://mirrors.cloud.tencent.com/npm/",
   "cnpm": "https://r.cnpmjs.org/",
-  "taobao": "https://registry.npmmirror.com/",
-  "npmMirror": "https://skimdb.npmjs.com/registry/"
+  "taobao": "https://registry.npmmirror.com/"
 }
 ```
-
-## To-do
-
-- [x] Using serverless to host `registries.json` on vercel
-- [ ] Using `nrm update` to sync the latest registry list
-- [ ] Add badges to the `README.md`
-- [ ] [travis-ci](https://travis-ci.org/)
-- [ ] eslint and prettier
 
 ## License
 
