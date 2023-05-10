@@ -17,7 +17,8 @@ const {
   setRegistryList,
   getRemoteRegistryList,
 } = require('./helpers.js');
-const { green, bold, underline } = require('picocolors');
+const fetch = require('node-fetch');
+const { red, yellow, green, bold, underline, bgGreen } = require('picocolors');
 const { NRS_CONFIG_FILE_PATH, USER_REGISTRY_KEY, INTERNAL_REGISTRY_KEY } = require('./constants');
 
 async function onInit() {
@@ -93,8 +94,46 @@ async function onUpdate() {
   printSuccess('The internal registry list is up to date.');
 }
 
-function onTest() {
-  console.log('onTest');
+async function onTest() {
+  const { internalRegistryList, internalRegistryNameList } = getRegistryList();
+
+  const results = await Promise.all(
+    Object
+      .entries(internalRegistryList)
+      .map(async function ([registryName, registryUrl]) {
+        let ok = false;
+        const start = Date.now();
+
+        try {
+          const response = await fetch(registryUrl + 'node', { timeout: 2000 });
+          ok = response.ok;
+        } finally {
+          return { registryUrl, registryName, ok, time: Date.now() - start };
+        }
+      })
+  );
+
+  let fastestTime = 10000;
+  results.forEach(it => {
+    if (it.ok && it.time < fastestTime) {
+      fastestTime = it.time;
+    }
+  })
+
+  const messages = [];
+  const currentRegistry = await getCurrentRegistry();
+
+  const length = Math.max(...internalRegistryNameList.map(name => name.length)) + 3;
+  results.forEach(({ registryUrl, registryName, ok, time }) => {
+    const prefix = registryUrl === currentRegistry ? green('-> ') : '   ';
+    let suffix = time === fastestTime ? `${time} ms ${green(`<-- fastest`)}` : `${time} ms`;
+    if (!ok) {
+      suffix += red(' failed');
+    }
+    messages.push(prefix + registryName + geneDashLine(registryName, length) + suffix);
+  });
+
+  printMessages(messages);
 }
 
 module.exports = {
