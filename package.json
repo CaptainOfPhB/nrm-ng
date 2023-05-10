@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "scripts": {
     "prepare": "husky install",
-    "dev": "NODE_ENV=development node src/index.js",
+    "nrs": "NODE_ENV=development node src/index.js",
     "build": "npx swc src -d lib",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
@@ -14,8 +14,6 @@
     "npm",
     "nrm",
     "nrs",
-    "yrs",
-    "prs",
     "registry",
     "npm registry",
     "npm registry manager",
