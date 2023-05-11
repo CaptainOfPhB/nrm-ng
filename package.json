@@ -7,7 +7,7 @@
   "main": "lib/index.js",
   "scripts": {
     "prepare": "husky install",
-    "nrs": "NODE_ENV=development node src/index.js",
+    "nrs": "NODE_ENV=development node src/index.mjs",
     "build": "npx swc src -d lib",
     "test": "ava"
   },
@@ -31,6 +31,7 @@
     "commander": "^9.4.1",
     "execa": "5.1.1",
     "ini": "^3.0.1",
+    "node-fetch": "^3.3.1",
     "picocolors": "^1.0.0"
   },
   "devDependencies": {

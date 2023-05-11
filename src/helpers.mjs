@@ -1,24 +1,24 @@
-const fs = require('fs');
-const {
+import fs from 'fs';
+import{
   readConfig,
   writeConfig,
   isLowerCaseEqual,
   geneDashLine,
   printError,
   printMessages,
-} = require('./utils');
-const {
+} from './utils.mjs';
+import{
   NRS_CONFIG_FILE_PATH,
   REMOTE_REGISTRY_URL,
   USER_REGISTRY_KEY,
   INTERNAL_REGISTRY_KEY,
-} = require('./constants');
-const fetch = require('node-fetch');
-const { command, Options } = require('execa');
-const { bold, green, underline } = require('picocolors');
+} from './constants.mjs';
+import execa from 'execa';
+import pc from 'picocolors';
+import fetch from 'node-fetch';
 
 async function run(cmd, options) {
-  return command(cmd, options)
+  return execa.command(cmd, options)
     .then(result => result.stdout)
     .catch(error => printError(error.shortMessage));
 }
@@ -69,11 +69,11 @@ function convertUrl(string) {
     const url = new URL(string);
     return url.href;
   } catch {
-    printError(`The url ${underline(string)} is invalid.`);
+    printError(`The url ${pc.underline(string)} is invalid.`);
   }
 }
 
-module.exports = {
+export {
   setCurrentRegistry,
   getCurrentRegistry,
   getRegistryList,

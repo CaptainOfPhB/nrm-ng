@@ -1,4 +1,4 @@
-const path = require('path');
+import path from 'path';
 
 const PROJECT_DIR = process.cwd();
 const IS_DEV = process.env.NODE_ENV === 'development';
@@ -10,7 +10,7 @@ const USER_REGISTRY_KEY = 'user_registry';
 const INTERNAL_REGISTRY_KEY = 'internal_registry';
 const REMOTE_REGISTRY_URL = 'https://nrs-get-latest-registries.deno.dev/';
 
-module.exports = {
+export {
   HOME_VAR,
   HOME_PATH,
   NRS_CONFIG_FILE_NAME,

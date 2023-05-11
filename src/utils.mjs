@@ -1,19 +1,19 @@
-const fs = require('fs');
-const ini = require('ini');
-const { NRS_CONFIG_FILE_PATH } = require('./constants');
-const { bgGreen, green, bgRed, red, white, dim, underline } = require('picocolors');
+import fs from 'fs';
+import ini from 'ini';
+import pc from 'picocolors';
+import { NRS_CONFIG_FILE_PATH } from './constants.mjs';
 
 function geneDashLine(message, length) {
   const dashLine = new Array(Math.max(2, length - message.length + 2)).join('-');
-  return ` ${dim(dashLine)} `;
+  return ` ${pc.dim(dashLine)} `;
 }
 
 function printSuccess(message) {
-  console.log(`${bgGreen(white(' SUCCESS '))} ${green(message)}`);
+  console.log(`${pc.bgGreen(pc.white(' SUCCESS '))} ${pc.green(message)}`);
 }
 
 function printError(error) {
-  console.log(`${bgRed(white(' ERROR '))} ${red(error)}`);
+  console.log(`${pc.bgRed(pc.white(' ERROR '))} ${pc.red(error)}`);
   process.exit(0);
 }
 
@@ -39,7 +39,7 @@ function exitWhenFileExist() {
 
 function exitWhenFileNotExist() {
   if (!fs.existsSync(NRS_CONFIG_FILE_PATH)) {
-    printError(`File ${underline(NRS_CONFIG_FILE_PATH)} does not exist. Do you forget to run ${underline('nrm init')}?`);
+    printError(`File ${pc.underline(NRS_CONFIG_FILE_PATH)} does not exist. Do you forget to run ${pc.underline('nrm init')}?`);
   }
 }
 
@@ -54,7 +54,7 @@ function writeConfig(content) {
   fs.writeFileSync(NRS_CONFIG_FILE_PATH, ini.encode(content));
 }
 
-module.exports = {
+export {
   readConfig,
   writeConfig,
   printError,

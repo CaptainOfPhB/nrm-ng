@@ -1,6 +1,6 @@
-const fs = require('fs');
-const ini = require('ini');
-const {
+import fs from 'fs';
+import ini from 'ini';
+import {
   geneDashLine,
   printError,
   printSuccess,
@@ -8,25 +8,25 @@ const {
   readConfig,
   writeConfig,
   exitWhenFileExist
-} = require('./utils.js');
-const {
+} from './utils.mjs';
+import {
   convertUrl,
   setCurrentRegistry,
   getCurrentRegistry,
   getRegistryList,
   setRegistryList,
   getRemoteRegistryList,
-} = require('./helpers.js');
-const fetch = require('node-fetch');
-const { red, yellow, green, bold, underline, bgGreen } = require('picocolors');
-const { NRS_CONFIG_FILE_PATH, USER_REGISTRY_KEY, INTERNAL_REGISTRY_KEY } = require('./constants');
+} from './helpers.mjs';
+import pc from 'picocolors';
+import fetch from 'node-fetch';
+import { NRS_CONFIG_FILE_PATH, USER_REGISTRY_KEY, INTERNAL_REGISTRY_KEY } from './constants.mjs';
 
 async function onInit() {
   // we consider that nrs has been initialized if the .nrsrc existed
   exitWhenFileExist();
   const remoteRegistryList = await getRemoteRegistryList();
   writeConfig({ [INTERNAL_REGISTRY_KEY]: remoteRegistryList });
-  printSuccess(`Congratulations, nrs has been initialized. Now, try use ${underline('nrs list')} to see all registryList.`);
+  printSuccess(`Congratulations, nrs has been initialized. Now, try use ${pc.underline('nrs list')} to see all registryList.`);
 }
 
 async function onList() {
@@ -36,7 +36,7 @@ async function onList() {
 
   const messages = registryNameList.map(registryName => {
     const registry = registryList[registryName];
-    const prefix = convertUrl(registry) === convertUrl(currentRegistry) ? green(bold('-> ')) : '   ';
+    const prefix = convertUrl(registry) === convertUrl(currentRegistry) ? pc.green(pc.bold('-> ')) : '   ';
     return prefix + registryName + geneDashLine(registryName, dashLineLength) + registry;
   });
 
@@ -45,47 +45,47 @@ async function onList() {
 
 async function onCurrent() {
   const currentRegistry = await getCurrentRegistry();
-  printSuccess(`The current registry is ${underline(currentRegistry)}.`);
+  printSuccess(`The current registry is ${pc.underline(currentRegistry)}.`);
 }
 
 async function onUse(registryName) {
   const { registryList, registryNameList } = getRegistryList();
   if (!registryNameList.includes(registryName)) {
-    printError(`The registry name ${underline(registryName)} is not existed.`)
+    printError(`The registry name ${pc.underline(registryName)} is not existed.`)
   }
   const registry = registryList[registryName];
   await setCurrentRegistry(registry);
-  printSuccess(`The registry has been set to ${underline(registryName)}(${registry}).`);
+  printSuccess(`The registry has been set to ${pc.underline(registryName)}(${registry}).`);
 }
 
 function onAdd(registryName, registry) {
   const { userRegistryList, registryUrlList, registryNameList } = getRegistryList();
   if (registryUrlList.includes(convertUrl(registry))) {
-    printError(`The registry url ${underline(registry)} is already existed.`)
+    printError(`The registry url ${pc.underline(registry)} is already existed.`)
   }
   if (registryNameList.includes(registryName)) {
-    printError(`The registry name ${underline(registryName)} is already existed.`)
+    printError(`The registry name ${pc.underline(registryName)} is already existed.`)
   }
   userRegistryList[registryName] = convertUrl(registry);
   setRegistryList(USER_REGISTRY_KEY, userRegistryList);
-  printSuccess(`The registry ${underline(registryName)}(${registry}) has been added.`);
+  printSuccess(`The registry ${pc.underline(registryName)}(${registry}) has been added.`);
 }
 
 async function onDelete(registryName) {
   const currentRegistry = await getCurrentRegistry();
   const { registryList, internalRegistryNameList, userRegistryNameList, userRegistryList } = getRegistryList();
   if (internalRegistryNameList.includes(registryName)) {
-    printError(`The registry ${underline(registryName)}(${registryList[registryName]}) is an internal registry, you can't delete it.`)
+    printError(`The registry ${pc.underline(registryName)}(${registryList[registryName]}) is an internal registry, you can't delete it.`)
   }
   if (!userRegistryNameList.includes(registryName)) {
-    printError(`The registry ${underline(registryName)} is not existed.`)
+    printError(`The registry ${pc.underline(registryName)} is not existed.`)
   }
   if (currentRegistry === userRegistryList[registryName]) {
-    printError(`The registry ${underline(registryName)}(${registryList[registryName]}) is in use, you can't delete it.`);
+    printError(`The registry ${pc.underline(registryName)}(${registryList[registryName]}) is in use, you can't delete it.`);
   }
   delete userRegistryList[registryName];
   setRegistryList(USER_REGISTRY_KEY, userRegistryList);
-  printSuccess(`The registry ${underline(registryName)}(${registryList[registryName]}) has been deleted.`);
+  printSuccess(`The registry ${pc.underline(registryName)}(${registryList[registryName]}) has been deleted.`);
 }
 
 async function onUpdate() {
@@ -125,10 +125,10 @@ async function onTest() {
 
   const length = Math.max(...internalRegistryNameList.map(name => name.length)) + 3;
   results.forEach(({ registryUrl, registryName, ok, time }) => {
-    const prefix = registryUrl === currentRegistry ? green('-> ') : '   ';
-    let suffix = time === fastestTime ? `${time} ms ${green(`<-- fastest`)}` : `${time} ms`;
+    const prefix = registryUrl === currentRegistry ? pc.green('-> ') : '   ';
+    let suffix = time === fastestTime ? `${time} ms ${pc.green(`<-- fastest`)}` : `${time} ms`;
     if (!ok) {
-      suffix += red(' failed');
+      suffix += pc.red(' failed');
     }
     messages.push(prefix + registryName + geneDashLine(registryName, length) + suffix);
   });
@@ -136,7 +136,7 @@ async function onTest() {
   printMessages(messages);
 }
 
-module.exports = {
+export {
   onInit,
   onList,
   onCurrent,

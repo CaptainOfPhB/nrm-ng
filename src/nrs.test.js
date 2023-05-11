@@ -1,4 +1,3 @@
-// const test = require('ava');
 import test from 'ava'
 
 test('nrs should show registry list', t => {
