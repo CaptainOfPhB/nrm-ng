@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
+import { Command } from 'commander';
 import * as actions from './actions.mjs';
-import { Command, Option } from 'commander';
 
 const program = new Command();
 

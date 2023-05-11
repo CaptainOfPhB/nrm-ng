@@ -1,29 +1,17 @@
-import fs from 'fs';
-import{
-  readConfig,
-  writeConfig,
-  isLowerCaseEqual,
-  geneDashLine,
-  printError,
-  printMessages,
-} from './utils.mjs';
-import{
-  NRS_CONFIG_FILE_PATH,
-  REMOTE_REGISTRY_URL,
-  USER_REGISTRY_KEY,
-  INTERNAL_REGISTRY_KEY,
-} from './constants.mjs';
 import execa from 'execa';
 import pc from 'picocolors';
 import fetch from 'node-fetch';
+import { readConfig, writeConfig, printError, } from './utils.mjs';
+import { REMOTE_REGISTRY_URL, USER_REGISTRY_KEY, INTERNAL_REGISTRY_KEY, } from './constants.mjs';
 
-async function run(cmd, options) {
-  return execa.command(cmd, options)
+async function run(cmd: string) {
+  return execa
+    .command(cmd)
     .then(result => result.stdout)
     .catch(error => printError(error.shortMessage));
 }
 
-async function setCurrentRegistry(registry) {
+async function setCurrentRegistry(registry: string) {
   return run(`npm config set registry=${registry}`);
 }
 
@@ -32,7 +20,7 @@ async function getCurrentRegistry() {
 }
 
 function getRegistryList() {
-  const config = readConfig(NRS_CONFIG_FILE_PATH);
+  const config = readConfig();
   const userRegistryList = config[USER_REGISTRY_KEY] || {};
   const internalRegistryList = config[INTERNAL_REGISTRY_KEY];
   const registryList = { ...userRegistryList, ...internalRegistryList };
@@ -53,23 +41,22 @@ async function getRemoteRegistryList() {
   try {
     const response = await fetch(REMOTE_REGISTRY_URL);
     const registries = await response.json();
-    return registries;
+    return registries as Record<string, string>;
   } catch {
     printError('Failed to fetch remote registries.');
   }
 }
 
-function setRegistryList(registryKey, registryList) {
+function setRegistryList(registryKey: string, registryList: Record<string, string>) {
   const config = readConfig();
   writeConfig({ ...config, [registryKey]: registryList });
 }
 
-function convertUrl(string) {
+function convertUrl(url: string) {
   try {
-    const url = new URL(string);
-    return url.href;
+    return new URL(url).href;
   } catch {
-    printError(`The url ${pc.underline(string)} is invalid.`);
+    printError(`The url ${pc.underline(url)} is invalid.`);
   }
 }
 
