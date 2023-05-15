@@ -1,13 +1,7 @@
-import {
-  geneDashLine,
-  printError,
-  printSuccess,
-  printMessages,
-  writeConfig,
-  exitWhenFileExist
-} from './utils.mjs';
+import fs from 'fs';
 import {
   convertUrl,
+  writeConfig,
   setCurrentRegistry,
   getCurrentRegistry,
   getRegistryList,
@@ -16,11 +10,14 @@ import {
 } from './helpers.mjs';
 import pc from 'picocolors';
 import fetch from 'node-fetch';
-import { USER_REGISTRY_KEY, INTERNAL_REGISTRY_KEY } from './constants.mjs';
+import { geneDashLine, printError, printSuccess, printMessages } from './utils.mjs';
+import { USER_REGISTRY_KEY, NRS_CONFIG_FILE_PATH, INTERNAL_REGISTRY_KEY } from './constants.mjs';
 
 async function onInit() {
   // we consider that nrs has been initialized if the .nrsrc existed
-  exitWhenFileExist();
+  if (fs.existsSync(NRS_CONFIG_FILE_PATH)) {
+    printError('The nrs has already been initialized.');
+  }
   const remoteRegistryList = await getRemoteRegistryList();
   writeConfig({ [INTERNAL_REGISTRY_KEY]: remoteRegistryList! });
   printSuccess(`Congratulations, nrs has been initialized. Now, try use ${pc.underline('nrs list')} to see all registryList.`);

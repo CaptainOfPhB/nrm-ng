@@ -1,15 +1,9 @@
-import execa from 'execa';
+import fs from 'fs';
+import ini from 'ini';
 import pc from 'picocolors';
 import fetch from 'node-fetch';
-import { readConfig, writeConfig, printError, } from './utils.mjs';
-import { REMOTE_REGISTRY_URL, USER_REGISTRY_KEY, INTERNAL_REGISTRY_KEY, } from './constants.mjs';
-
-async function run(cmd: string) {
-  return execa
-    .command(cmd)
-    .then(result => result.stdout)
-    .catch(error => printError(error.shortMessage));
-}
+import { run, printError } from './utils.mjs';
+import { REMOTE_REGISTRY_URL, USER_REGISTRY_KEY, INTERNAL_REGISTRY_KEY, NRS_CONFIG_FILE_PATH, } from './constants.mjs';
 
 async function setCurrentRegistry(registry: string) {
   return run(`npm config set registry=${registry}`);
@@ -60,6 +54,19 @@ function convertUrl(url: string) {
   }
 }
 
+function readConfig() {
+  if (!fs.existsSync(NRS_CONFIG_FILE_PATH)) {
+    printError(`File ${pc.underline(NRS_CONFIG_FILE_PATH)} does not exist. Do you forget to run ${pc.underline('nrm init')}?`);
+  }
+  const iniContent = fs.readFileSync(NRS_CONFIG_FILE_PATH, 'utf-8');
+  const jsonContent = ini.parse(iniContent);
+  return jsonContent;
+}
+
+function writeConfig(content: Record<string, Record<string, string>>) {
+  fs.writeFileSync(NRS_CONFIG_FILE_PATH, ini.encode(content));
+}
+
 export {
   setCurrentRegistry,
   getCurrentRegistry,
@@ -67,4 +74,6 @@ export {
   setRegistryList,
   getRemoteRegistryList,
   convertUrl,
+  readConfig,
+  writeConfig,
 };

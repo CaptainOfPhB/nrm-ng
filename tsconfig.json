@@ -2,8 +2,8 @@
   "extends": "ts-node/node16/tsconfig.json",
   "compilerOptions": {
     "target": "es2016",
-    "module": "Node16",
-    "moduleResolution": "node16",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

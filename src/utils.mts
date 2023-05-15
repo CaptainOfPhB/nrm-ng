@@ -1,7 +1,12 @@
-import fs from 'fs';
-import ini from 'ini';
+import execa from 'execa';
 import pc from 'picocolors';
-import { NRS_CONFIG_FILE_PATH } from './constants.mjs';
+
+async function run(cmd: string) {
+  return execa
+    .command(cmd)
+    .then(result => result.stdout)
+    .catch(error => printError(error.shortMessage));
+}
 
 function geneDashLine(message: string, length: number) {
   const dashLine = new Array(Math.max(2, length - message.length + 2)).join('-');
@@ -31,37 +36,11 @@ function isLowerCaseEqual(str1: string, str2: string) {
   }
 }
 
-function exitWhenFileExist() {
-  if (fs.existsSync(NRS_CONFIG_FILE_PATH)) {
-    printError('The nrs has already been initialized.');
-  }
-}
-
-function exitWhenFileNotExist() {
-  if (!fs.existsSync(NRS_CONFIG_FILE_PATH)) {
-    printError(`File ${pc.underline(NRS_CONFIG_FILE_PATH)} does not exist. Do you forget to run ${pc.underline('nrm init')}?`);
-  }
-}
-
-function readConfig() {
-  exitWhenFileNotExist();
-  const iniContent = fs.readFileSync(NRS_CONFIG_FILE_PATH, 'utf-8');
-  const jsonContent = ini.parse(iniContent);
-  return jsonContent;
-}
-
-function writeConfig(content: Record<string, Record<string, string>>) {
-  fs.writeFileSync(NRS_CONFIG_FILE_PATH, ini.encode(content));
-}
-
 export {
-  readConfig,
-  writeConfig,
+  run,
   printError,
   printSuccess,
   printMessages,
   geneDashLine,
   isLowerCaseEqual,
-  exitWhenFileExist,
-  exitWhenFileNotExist,
 }
