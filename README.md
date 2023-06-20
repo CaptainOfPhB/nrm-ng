@@ -1,42 +1,47 @@
-# nrs
+# nrm-ng
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-A <ins>**n**</ins>pm <ins>**r**</ins>egistry <ins>**s**</ins>elector to easy switch npm registry, alternative to [`nrm`](https://github.com/Pana/nrm).
+The NPM registry management, the next generation of [nrm](https://github.com/Pana/nrm).
 
-## Features
+## Why `nrm-ng`?
 
-The internal registry list is hosted on [vercel](https://vercel.com/), so you can easily update your local registry list by `nrs update` command instead of install a new version, if the remote list has any change.
+- **Hot reload supported**. The internal registry list is hosted on [vercel](https://vercel.com/), so you can easily update your local registry list by `nrm update` command instead of install a new version if the remote registry list has changes.
 
 ## Installation
 
 ```bash
-pnpm add -g nrs
+# npm
+npm i -g nrm-ng
+# yarn
+yarn global add nrm-ng
+# pnpm
+pnpm add -g nrm-ng
 ```
 
 ## Usage
 
 ```bash
 # list all registries
-nrs ls
+nrm ls
 
 # show the current registry
 nrm current
 
 # add a registry
-nrs add gh https://npm.pkg.github.com
+nrm add gh https://npm.pkg.github.com
 
-# switch to a registry
-nrs use gh
+# switch registry
+nrm use gh
 
-# remove a registry
-nrs rm gh
+# remove registry
+nrm rm gh
 
-# test a registry response speed
-nrs test
+# ping registry response speed
+nrm ping
 
-# update the registry list to keep up with the latest
-nrs update
+# update the registry list to keep up with the remote
+nrm update
 ```
 
 ## Supported registries
@@ -52,6 +57,10 @@ Refer to [`registries.json`](./registries.json).
   "taobao": "https://registry.npmmirror.com/"
 }
 ```
+
+## Todo
+
+- Loading when ping registry
 
 ## License
 
