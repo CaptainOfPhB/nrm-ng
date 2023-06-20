@@ -88,7 +88,7 @@ async function onUpdate() {
   printSuccess('The internal registry list is up to date.');
 }
 
-async function onTest() {
+async function onPing() {
   const { internalRegistryList, internalRegistryNameList } = getRegistryList();
 
   const results = await Promise.all(
@@ -138,5 +138,5 @@ export {
   onAdd,
   onDelete,
   onUpdate,
-  onTest,
+  onPing,
 };

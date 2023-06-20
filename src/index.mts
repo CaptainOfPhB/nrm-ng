@@ -40,9 +40,9 @@ program
   .description('Delete a registry')
 
 program
-  .command('test')
-  .action(actions.onTest)
-  .description('Test the response speed of all registries')
+  .command('ping')
+  .action(actions.onPing)
+  .description('Ping the registry response speed')
 
 program
   .command('update')
