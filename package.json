@@ -1,13 +1,13 @@
 {
-  "name": "nrs",
-  "version": "1.0.0",
-  "description": "A tool to easy switch npm/yarn/pnpm registry",
+  "name": "nrg-ng",
+  "version": "1.0.0-beta.1",
+  "description": "The next generation of NPM registry management",
   "type": "module",
-  "bin": "nrs",
+  "bin": "nrm",
   "main": "lib/index.js",
   "scripts": {
     "prepare": "husky install",
-    "ts": "NODE_ENV=development ts-node --esm src/index.mts",
+    "nrm": "NODE_ENV=development ts-node --esm src/index.mts",
     "build": "npx swc src -d lib",
     "test": "ava"
   },
@@ -15,11 +15,14 @@
     "npm",
     "nrm",
     "nrs",
-    "registry",
     "npm registry",
-    "npm registry manager",
-    "npm registry selector"
+    "npm registry selector",
+    "npm registry management",
+    "npm registry next generation"
   ],
+  "repository": {
+    "url": "https://github.com/CaptainOfPhB/nrm-ng"
+  },
   "author": "CaptainOfPhB <captainofphb@gmail.com>",
   "license": "MIT",
   "config": {
