@@ -6,7 +6,7 @@ The NPM registry management, the next generation of [nrm](https://github.com/Pan
 
 ## Why `nrm-ng`?
 
-- **Hot reload supported**. The internal registry list is hosted on [vercel](https://vercel.com/), so you can easily update your local registry list by `nrm update` command instead of install a new version if the remote registry list has changes.
+- **Registry is always up-to-date**. The internal registry list is hosted on [Deno Deploy](https://deno.com/deploy), so if there are any changes to the remote registry list, you can conveniently keep the local registry list up-to-date with the `nrm update` command instead of installing a new version.
 
 ## Installation
 
