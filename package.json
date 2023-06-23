@@ -1,5 +1,5 @@
 {
-  "name": "nrg-ng",
+  "name": "nrm-ng",
   "version": "1.0.0-beta.1",
   "description": "The next generation of NPM registry management",
   "type": "module",
@@ -14,7 +14,6 @@
   "keywords": [
     "npm",
     "nrm",
-    "nrs",
     "npm registry",
     "npm registry selector",
     "npm registry management",

@@ -8,7 +8,7 @@ const NRS_CONFIG_FILE_NAME = '.nrsrc';
 const NRS_CONFIG_FILE_PATH = path.join(HOME_PATH!, NRS_CONFIG_FILE_NAME);
 const USER_REGISTRY_KEY = 'user_registry';
 const INTERNAL_REGISTRY_KEY = 'internal_registry';
-const REMOTE_REGISTRY_URL = 'https://nrs-get-latest-registries.deno.dev/';
+const REMOTE_REGISTRY_URL = 'https://nrm-ng-registry.deno.dev/';
 
 export {
   HOME_VAR,
