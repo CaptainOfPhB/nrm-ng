@@ -22,13 +22,13 @@ pnpm add -g nrm-ng
 ## Usage
 
 ```bash
-# list all registries
+# list registry
 nrm ls
 
 # show the current registry
 nrm current
 
-# add a registry
+# add registry
 nrm add gh https://npm.pkg.github.com
 
 # switch registry
@@ -40,27 +40,52 @@ nrm rm gh
 # ping registry response speed
 nrm ping
 
-# update the registry list to keep up with the remote
+# keep the registry up-to-date
 nrm update
 ```
 
-## Supported registries
+## Supported registry
 
-Refer to [`registries.json`](./registries.json).
+Refer to [`registry.json`](./registry.json).
 
 ```json
 {
-  "npm": "https://registry.npmjs.org/",
-  "yarn": "https://registry.yarnpkg.com/",
-  "tencent": "https://mirrors.cloud.tencent.com/npm/",
-  "cnpm": "https://r.cnpmjs.org/",
-  "taobao": "https://registry.npmmirror.com/"
+  "npm": {
+    "home": "https://www.npmjs.org",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "yarn": {
+    "home": "https://yarnpkg.com",
+    "registry": "https://registry.yarnpkg.com/"
+  },
+  "tencent": {
+    "home": "https://mirrors.cloud.tencent.com/npm/",
+    "registry": "https://mirrors.cloud.tencent.com/npm/"
+  },
+  "cnpm": {
+    "home": "https://cnpmjs.org",
+    "registry": "https://r.cnpmjs.org/"
+  },
+  "taobao": {
+    "home": "https://npmmirror.com",
+    "registry": "https://registry.npmmirror.com/"
+  },
+  "npmMirror": {
+    "home": "https://skimdb.npmjs.com/",
+    "registry": "https://skimdb.npmjs.com/registry/"
+  }
 }
 ```
 
-## Todo
+<!-- 
 
+TODO
+
+- Compatible with `nrm`
+- Add `nrm migrate` command for `nrm` user
 - Loading when ping registry
+
+-->
 
 ## License
 

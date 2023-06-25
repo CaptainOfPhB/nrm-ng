@@ -6,11 +6,11 @@ import { run, printError } from './utils.mjs';
 import { REMOTE_REGISTRY_URL, USER_REGISTRY_KEY, INTERNAL_REGISTRY_KEY, NRS_CONFIG_FILE_PATH, } from './constants.mjs';
 
 async function setCurrentRegistry(registry: string) {
-  return run(`npm config set registry=${registry}`);
+  return run(`npm set registry ${registry}`);
 }
 
 async function getCurrentRegistry() {
-  return run(`npm config get registry`);
+  return run(`npm get registry`);
 }
 
 function getRegistryList() {
