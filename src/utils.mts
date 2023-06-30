@@ -1,9 +1,8 @@
-import execa from 'execa';
+import { $ } from 'execa';
 import pc from 'picocolors';
 
 async function run(cmd: string) {
-  return execa
-    .command(cmd)
+  return $`${cmd.split(' ')}`
     .then(result => result.stdout)
     .catch(error => printError(error.shortMessage));
 }
