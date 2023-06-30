@@ -6,10 +6,19 @@
   "bin": "nrm",
   "main": "lib/index.js",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "nrm": "NODE_ENV=development ts-node --esm src/index.mts",
-    "build": "npx swc src -d lib",
-    "test": "ava"
+    "test": "ava",
+    "test:coverage": "ava",
+    "build": "tsup",
+    "prepublishOnly": "pnpm coverage"
+  },
+  "tsup": {
+    "clean": true,
+    "minify": true,
+    "format": ["esm"],
+    "entry": ["src/index.mts"]
   },
   "keywords": [
     "npm",
@@ -49,6 +58,11 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3",
     "ts-node": "^10.9.1",
+    "tsup": "^7.1.0",
     "typescript": "^5.1.6"
-  }
+  },
+  "engines": {
+    "node": ">=14.16.0"
+  },
+  "packageManager": "pnpm@8.6.5"
 }
