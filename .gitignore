@@ -4,9 +4,10 @@
 .DS_Store
 
 lib
+dist
 node_modules
 
 *.log
 *.error
 
-.nrsrc
+.nrmrc
