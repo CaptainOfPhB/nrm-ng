@@ -6,13 +6,13 @@ import * as actions from './actions.mjs';
 const program = new Command();
 
 program
-  .name('nrs')
-  .description('A tool to easy switch npm registry');
+  .name('nrm-ng')
+  .description('A cli tool to easy switch npm registry');
 
 program
   .command('init')
   .action(actions.onInit)
-  .description('Initialize nrs')
+  .description('Initialize nrm-ng')
 
 program
   .command('current')
