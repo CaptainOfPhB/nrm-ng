@@ -11,8 +11,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "prepare": "is-ci || husky install",
-    "nrm": "NODE_ENV=development ts-node --esm src/index.mts",
-    "eslint:fix": "echo \"eslint --fix --ext .mts,.ts src\"",
+    "nrm": "NODE_ENV=development ts-node-esm src/index.mts",
+    "check": "ts-node-esm --typeCheck src/index.mts",
     "test": "ava",
     "test:coverage": "ava",
     "build": "tsup",
@@ -24,7 +24,7 @@
     ]
   },
   "lint-staged": {
-    "src/**/*.{ts,mts}": "pnpm run eslint:fix"
+    "src/**/*.{ts,mts}": "pnpm run check"
   },
   "tsup": {
     "clean": true,
@@ -61,10 +61,8 @@
   },
   "dependencies": {
     "commander": "^11.0.0",
-    "execa": "7.1.1",
     "ini": "^4.1.1",
-    "node-fetch": "^3.3.1",
-    "picocolors": "^1.0.0"
+    "node-fetch": "^3.3.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.7",
