@@ -1,4 +1,5 @@
 import {
+  isNrmrcExist,
   tryNormalizeUrl,
   getCurrentRegistry,
   setCurrentRegistry,
@@ -7,18 +8,13 @@ import {
   getRemoteRegistries,
 } from './helpers.mjs';
 import fetch from 'node-fetch';
-import { generateDashLine, print, success, exit, error } from './utils.mjs';
+import { generateDashLine, print, exit, error } from './utils.mjs';
 
 async function onInit() {
-  console.log('To be implemented');
-
-  // we consider that nrs has been initialized if the .nrsrc existed
-  // if (fs.existsSync(NRS_CONFIG_FILE_PATH)) {
-  //   printError('The nrs has already been initialized.');
-  // }
-  // const remoteRegistryList = await getRemoteRegistryList();
-  // writeConfig({ [INTERNAL_REGISTRY_KEY]: remoteRegistryList! });
-  // printSuccess(`Congratulations, nrs has been initialized. Now, try use ${pc.underline('nrs list')} to see all registryList.`);
+  if (!isNrmrcExist()) {
+    setLocalRegistries({});
+  }
+  onUpdate();
 }
 
 async function onList() {
@@ -37,7 +33,7 @@ async function onList() {
 
 async function onCurrent() {
   const currentRegistry = await getCurrentRegistry();
-  print(success(`The current registry is ${currentRegistry}.`));
+  print(currentRegistry);
 }
 
 async function onUse(name: string) {
@@ -47,32 +43,31 @@ async function onUse(name: string) {
   }
   const target = registries[name];
   await setCurrentRegistry(target.registry);
-  print(success(`The registry has been set to '${name}'.`));
 }
 
 function onAdd(name: string, url: string) {
   const { registries } = getLocalRegistries();
   const normalizedUrl = tryNormalizeUrl(url)!;
+  registries[name] = registries[name] || {};
   registries[name].registry = normalizedUrl;
   setLocalRegistries(registries);
-  print(success(`The registry ${name} has been added/updated.`));
 }
 
 async function onDelete(name: string) {
   const { registries } = getLocalRegistries();
   delete registries[name];
   setLocalRegistries(registries);
-  print(success(`The registry '${name}' has been deleted.`));
 }
 
 async function onUpdate() {
   const remoteRegistryList = await getRemoteRegistries();
   const { registries } = getLocalRegistries();
   setLocalRegistries({ ...remoteRegistryList, ...registries, });
-  print(success('The registry list is up to date.'));
 }
 
 async function onPing() {
+  print('This action may take a while, please wait...');
+
   const { registries, registryNames } = getLocalRegistries();
 
   const results = await Promise.all(
@@ -103,8 +98,8 @@ async function onPing() {
 
   const length = Math.max(...registryNames.map(name => name.length)) + 3;
   results.forEach(({ registryUrl, registryName, ok, time }) => {
-    const prefix = registryUrl === currentRegistry ? success('-> ') : '   ';
-    let suffix = time === fastestTime ? `${time} ms ${success(`<-- fastest`)}` : `${time} ms`;
+    const prefix = registryUrl === currentRegistry ? '-> ' : '   ';
+    let suffix = time === fastestTime ? `${time} ms <- fastest` : `${time} ms`;
     if (!ok) {
       suffix += error(' failed');
     }
