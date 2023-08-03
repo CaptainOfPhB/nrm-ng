@@ -3,10 +3,10 @@
   "version": "1.0.0-beta.1",
   "description": "The next generation of NPM registry management",
   "type": "module",
-  "bin": "nrm",
-  "main": "lib/index.js",
+  "bin":"dist/index.js",
+  "main": "dist/index.js",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -16,6 +16,7 @@
     "test": "ava",
     "test:coverage": "ava",
     "build": "tsup",
+    "build:link": "pnpm run build && pnpm link --global",
     "prepublishOnly": "pnpm coverage"
   },
   "commitlint": {
