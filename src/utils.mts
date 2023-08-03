@@ -1,45 +1,52 @@
-import { $ } from 'execa';
-import pc from 'picocolors';
+import { exec } from 'child_process';
 
-async function run(cmd: string) {
-  return $`${cmd.split(' ')}`
-    .then(result => result.stdout)
-    .catch(error => printError(error.shortMessage));
+async function run(command: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(error.message);
+        exit(error.message);
+      }
+      if (stderr) {
+        reject(stderr);
+        exit(stderr);
+      }
+      resolve(stdout);
+    });
+  });
 }
 
-function geneDashLine(message: string, length: number) {
+function generateDashLine(message: string, length: number) {
   const dashLine = new Array(Math.max(2, length - message.length + 2)).join('-');
-  return ` ${pc.dim(dashLine)} `;
+  return ` \x1b[2m${dashLine}\x1b[0m `;
 }
 
-function printSuccess(message: string) {
-  console.log(`${pc.bgGreen(pc.white(' SUCCESS '))} ${pc.green(message)}`);
+// TODO consider remove this, no message is good message
+function success(msg: string) {
+  return `\x1b[32mSUCCESS: ${msg}\x1b[0m`;
 }
 
-function printError(error: string) {
-  console.log(`${pc.bgRed(pc.white(' ERROR '))} ${pc.red(error)}`);
-  process.exit(0);
+function error(msg: string) {
+  return `\x1b[31m%sERROR: ${msg}\x1b[0m`;
 }
 
-function printMessages(messages: string[]) {
-  for (const message of messages) {
-    console.log(message);
-  }
+function exit(msg: string) {
+  print(error(msg));
+  process.exit(1);
 }
 
-function isLowerCaseEqual(str1: string, str2: string) {
-  if (str1 && str2) {
-    return str1.toLowerCase() === str2.toLowerCase();
-  } else {
-    return !str1 && !str2;
+function print(message: string | string[]) {
+  const messages = typeof message === 'string' ? [message] : message;
+  for (const msg of messages) {
+    console.log(msg);
   }
 }
 
 export {
   run,
-  printError,
-  printSuccess,
-  printMessages,
-  geneDashLine,
-  isLowerCaseEqual,
-}
+  exit,
+  print,
+  error,
+  success,
+  generateDashLine,
+};
