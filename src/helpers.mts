@@ -1,9 +1,8 @@
 import fs from 'fs';
 import ini from 'ini';
-import pc from 'picocolors';
 import fetch from 'node-fetch';
-import { run, printError } from './utils.mjs';
-import { REMOTE_REGISTRY_URL, USER_REGISTRY_KEY, INTERNAL_REGISTRY_KEY, NRS_CONFIG_FILE_PATH, } from './constants.mjs';
+import { run, error, exit, print } from './utils.mjs';
+import { REMOTE_REGISTRY_URL, NRM_CONFIG_FILE_PATH, NRM_CONFIG_FILE_NAME, } from './constants.mjs';
 
 async function setCurrentRegistry(registry: string) {
   return run(`npm set registry ${registry}`);
@@ -13,67 +12,68 @@ async function getCurrentRegistry() {
   return run(`npm get registry`);
 }
 
-function getRegistryList() {
-  const config = readConfig();
-  const userRegistryList = config[USER_REGISTRY_KEY] || {};
-  const internalRegistryList = config[INTERNAL_REGISTRY_KEY];
-  const registryList = { ...userRegistryList, ...internalRegistryList };
-  return {
-    registryList,
-    registryUrlList: Object.values(registryList),
-    registryNameList: Object.keys(registryList),
-    userRegistryList,
-    userRegistryUrlList: Object.values(userRegistryList),
-    userRegistryNameList: Object.keys(userRegistryList),
-    internalRegistryList,
-    internalRegistryUrlList: Object.values(internalRegistryList),
-    internalRegistryNameList: Object.keys(internalRegistryList),
-  }
+function getLocalRegistries() {
+  const registries = read() || {};
+  const [registryNames, registryUrls] = Object.entries(registries).reduce<[string[], string[]]>(
+    ([names, urls], [key, value]) => ([names.concat(key), urls.concat(value.registry)]),
+    [[], []],
+  );
+  return { registries, registryUrls, registryNames };
 }
 
-async function getRemoteRegistryList() {
+function setLocalRegistries(newRegistries: Registry) {
+  const oldRegistries = read();
+  write({ ...oldRegistries, ...newRegistries });
+}
+
+async function getRemoteRegistries() {
   try {
     const response = await fetch(REMOTE_REGISTRY_URL);
     const registries = await response.json();
-    return registries as Record<string, string>;
+    return registries as Registry;
   } catch {
-    printError('Failed to fetch remote registries.');
+    exit('Failed to fetch remote registry list, please try again later.');
   }
 }
 
-function setRegistryList(registryKey: string, registryList: Record<string, string>) {
-  const config = readConfig();
-  writeConfig({ ...config, [registryKey]: registryList });
+function read() {
+  try {
+    const iniContent = fs.readFileSync(NRM_CONFIG_FILE_PATH, 'utf-8');
+    const jsonContent = ini.parse(iniContent);
+    return jsonContent as Registry;
+  } catch (e) {
+    print(error(`Failed to read config file ${NRM_CONFIG_FILE_NAME}.`));
+    if (e instanceof ReferenceError) {
+      print(error('Please run \'nrm init\' to initialize the config file.'));
+    }
+    exit((e as Error).message);
+  }
 }
 
-function convertUrl(url: string) {
+function write(content: Registry) {
+  try {
+    fs.writeFileSync(NRM_CONFIG_FILE_PATH, ini.encode(content));
+  } catch (e) {
+    print(error(`Failed to write config file ${NRM_CONFIG_FILE_NAME}.`));
+    exit((e as Error).message);
+  }
+}
+
+function tryNormalizeUrl(url: string) {
   try {
     return new URL(url).href;
   } catch {
-    printError(`The url ${pc.underline(url)} is invalid.`);
+    exit(`The url '${url}' is invalid.`);
   }
-}
-
-function readConfig() {
-  if (!fs.existsSync(NRS_CONFIG_FILE_PATH)) {
-    printError(`File ${pc.underline(NRS_CONFIG_FILE_PATH)} does not exist. Do you forget to run ${pc.underline('nrm init')}?`);
-  }
-  const iniContent = fs.readFileSync(NRS_CONFIG_FILE_PATH, 'utf-8');
-  const jsonContent = ini.parse(iniContent);
-  return jsonContent;
-}
-
-function writeConfig(content: Record<string, Record<string, string>>) {
-  fs.writeFileSync(NRS_CONFIG_FILE_PATH, ini.encode(content));
 }
 
 export {
+  read,
+  write,
+  tryNormalizeUrl,
   setCurrentRegistry,
   getCurrentRegistry,
-  getRegistryList,
-  setRegistryList,
-  getRemoteRegistryList,
-  convertUrl,
-  readConfig,
-  writeConfig,
+  getLocalRegistries,
+  setLocalRegistries,
+  getRemoteRegistries,
 };
