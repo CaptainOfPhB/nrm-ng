@@ -9,8 +9,10 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": [
-    "src/**/*.mts",
+  "files": [
     "global.d.ts"
+  ],
+  "include": [
+    "src/**/*.mts"
   ]
 }
