@@ -41,10 +41,10 @@ function read() {
     const jsonContent = ini.parse(iniContent);
     return jsonContent as Registry;
   } catch (e) {
-    print(error(`Failed to read config file '${NRM_CONFIG_FILE_PATH}'.`));
-    if (e instanceof ReferenceError) {
-      print(error('Please run \'nrm init\' to initialize nrm-ng.'));
+    if (!isNrmrcExist()) {
+      print('Did you forget to run \'nrm init\' to initialize nrm-ng?\n');
     }
+    print(error(`Failed to read config file '${NRM_CONFIG_FILE_PATH}'.`));
     exit((e as Error).message);
   }
 }
@@ -58,6 +58,10 @@ function write(content: Registry) {
   }
 }
 
+function isNrmrcExist() {
+  return fs.existsSync(NRM_CONFIG_FILE_PATH);
+}
+
 function tryNormalizeUrl(url: string) {
   try {
     return new URL(url).href;
@@ -69,6 +73,7 @@ function tryNormalizeUrl(url: string) {
 export {
   read,
   write,
+  isNrmrcExist,
   tryNormalizeUrl,
   setCurrentRegistry,
   getCurrentRegistry,
