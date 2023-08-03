@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-import { Command } from 'commander';
-import * as actions from './actions.mjs';
+import { Command } from 'commander'
+import * as actions from './actions.mjs'
 
-const program = new Command();
+const program = new Command()
 
 program
-  .name('nrm-ng')
-  .description('A cli tool to easy switch npm registry');
+  .name('nrm')
+  .description('A cli tool to easy switch npm registry')
 
 program
   .command('init')
@@ -17,12 +17,12 @@ program
 program
   .command('current')
   .action(actions.onCurrent)
-  .description('Show current registry in use')
+  .description('Show the registry currently in use')
 
 program
   .command('ls')
   .action(actions.onList)
-  .description('List all registries')
+  .description('List all local registries')
 
 program
   .command('use <name>')
@@ -32,21 +32,25 @@ program
 program
   .command('add <name> <registry>')
   .action(actions.onAdd)
-  .description('Add a new registry')
+  .description('Add a registry')
 
 program
   .command('rm <name>')
   .action(actions.onDelete)
-  .description('Delete a registry')
+  .description('Remove a registry')
 
 program
   .command('ping')
   .action(actions.onPing)
-  .description('Ping the registry response speed')
+  .description('Ping registry response speed')
 
 program
   .command('update')
   .action(actions.onUpdate)
-  .description('Keep the internal registry list up to date')
+  .description('Keep local registry list up to date with remote')
 
-program.parse();
+if (process.argv.length > 2) {
+  program.parse(process.argv)
+} else {
+  program.help()
+}
