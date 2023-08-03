@@ -12,7 +12,7 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "is-ci || husky install",
     "nrm": "NODE_ENV=development ts-node-esm src/index.mts",
-    "check": "ts-node-esm --typeCheck src/index.mts",
+    "check": "ts-node-esm --typeCheck",
     "test": "ava",
     "test:coverage": "ava",
     "build": "tsup",
