@@ -2,7 +2,7 @@ import fs from 'fs';
 import ini from 'ini';
 import fetch from 'node-fetch';
 import { run, error, exit, print } from './utils.mjs';
-import { REMOTE_REGISTRY_URL, NRM_CONFIG_FILE_PATH, NRM_CONFIG_FILE_NAME, } from './constants.mjs';
+import { REMOTE_REGISTRY_URL, NRM_CONFIG_FILE_PATH } from './constants.mjs';
 
 async function setCurrentRegistry(registry: string) {
   return run(`npm set registry ${registry}`);
@@ -42,9 +42,9 @@ function read() {
     const jsonContent = ini.parse(iniContent);
     return jsonContent as Registry;
   } catch (e) {
-    print(error(`Failed to read config file ${NRM_CONFIG_FILE_NAME}.`));
+    print(error(`Failed to read config file '${NRM_CONFIG_FILE_PATH}'.`));
     if (e instanceof ReferenceError) {
-      print(error('Please run \'nrm init\' to initialize the config file.'));
+      print(error('Please run \'nrm init\' to initialize nrm-ng.'));
     }
     exit((e as Error).message);
   }
@@ -54,7 +54,7 @@ function write(content: Registry) {
   try {
     fs.writeFileSync(NRM_CONFIG_FILE_PATH, ini.encode(content));
   } catch (e) {
-    print(error(`Failed to write config file ${NRM_CONFIG_FILE_NAME}.`));
+    print(error(`Failed to write config file '${NRM_CONFIG_FILE_PATH}'.`));
     exit((e as Error).message);
   }
 }

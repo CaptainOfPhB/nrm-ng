@@ -27,7 +27,7 @@ function success(msg: string) {
 }
 
 function error(msg: string) {
-  return `\x1b[31m%sERROR: ${msg}\x1b[0m`;
+  return `\x1b[31mERROR: ${msg}\x1b[0m`;
 }
 
 function exit(msg: string) {
