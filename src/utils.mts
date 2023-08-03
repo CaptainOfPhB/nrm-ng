@@ -11,7 +11,7 @@ async function run(command: string): Promise<string> {
         reject(stderr);
         exit(stderr);
       }
-      resolve(stdout);
+      resolve(stdout.trim());
     });
   });
 }
@@ -19,11 +19,6 @@ async function run(command: string): Promise<string> {
 function generateDashLine(message: string, length: number) {
   const dashLine = new Array(Math.max(2, length - message.length + 2)).join('-');
   return ` \x1b[2m${dashLine}\x1b[0m `;
-}
-
-// TODO consider remove this, no message is good message
-function success(msg: string) {
-  return `\x1b[32mSUCCESS: ${msg}\x1b[0m`;
 }
 
 function error(msg: string) {
@@ -47,6 +42,5 @@ export {
   exit,
   print,
   error,
-  success,
   generateDashLine,
 };
