@@ -47,7 +47,7 @@ async function onUse(name: string) {
   }
   const target = registries[name];
   await setCurrentRegistry(target.registry);
-  print(success(`The registry has been set to ${name}(${target.registry}).`));
+  print(success(`The registry has been set to '${name}'.`));
 }
 
 function onAdd(name: string, url: string) {
@@ -55,15 +55,14 @@ function onAdd(name: string, url: string) {
   const normalizedUrl = tryNormalizeUrl(url)!;
   registries[name].registry = normalizedUrl;
   setLocalRegistries(registries);
-  print(success(`The registry ${name}(${normalizedUrl}) has been added/updated.`));
+  print(success(`The registry ${name} has been added/updated.`));
 }
 
 async function onDelete(name: string) {
-  const currentRegistry = await getCurrentRegistry();
   const { registries } = getLocalRegistries();
   delete registries[name];
   setLocalRegistries(registries);
-  print(success(`The registry ${name}(${currentRegistry}) has been deleted.`));
+  print(success(`The registry '${name}' has been deleted.`));
 }
 
 async function onUpdate() {

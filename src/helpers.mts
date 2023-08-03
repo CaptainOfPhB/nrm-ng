@@ -21,9 +21,8 @@ function getLocalRegistries() {
   return { registries, registryUrls, registryNames };
 }
 
-function setLocalRegistries(newRegistries: Registry) {
-  const oldRegistries = read();
-  write({ ...oldRegistries, ...newRegistries });
+function setLocalRegistries(registries: Registry) {
+  write(registries);
 }
 
 async function getRemoteRegistries() {
