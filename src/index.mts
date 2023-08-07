@@ -2,8 +2,11 @@
 
 import { Command } from 'commander'
 import * as actions from './actions.mjs'
+import packageJson from '../package.json' assert { type: "json" }
 
 const program = new Command()
+
+program.version(packageJson.version, '-v, --version');
 
 program
   .name('nrm')
