@@ -3,7 +3,7 @@
   "version": "1.0.0-beta.1",
   "description": "The next generation of NPM registry management",
   "type": "module",
-  "bin":"dist/index.js",
+  "bin": "dist/index.js",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -37,6 +37,15 @@
       "src/index.mts"
     ]
   },
+  "ava": {
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm",
+      "--loader=esmock"
+    ]
+  },
   "publishConfig": {
     "publicPath": "/-/web/detail",
     "registry": "https://npm.aihuishou.com/"
@@ -66,6 +75,7 @@
     "node-fetch": "^3.3.1"
   },
   "devDependencies": {
+    "@ava/typescript": "^4.1.0",
     "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^17.6.7",
     "@tsconfig/node16": "^16.1.0",
@@ -73,6 +83,7 @@
     "@types/node": "^20.3.2",
     "ava": "^5.3.1",
     "commitizen": "^4.3.0",
+    "esmock": "^2.3.5",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
     "lint-staged": "^13.2.3",

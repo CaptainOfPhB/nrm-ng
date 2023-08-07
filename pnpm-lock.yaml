@@ -16,6 +16,9 @@ dependencies:
     version: 3.3.1
 
 devDependencies:
+  '@ava/typescript':
+    specifier: ^4.1.0
+    version: 4.1.0
   '@commitlint/cli':
     specifier: ^17.6.7
     version: 17.6.7
@@ -33,10 +36,13 @@ devDependencies:
     version: 20.3.2
   ava:
     specifier: ^5.3.1
-    version: 5.3.1
+    version: 5.3.1(@ava/typescript@4.1.0)
   commitizen:
     specifier: ^4.3.0
     version: 4.3.0
+  esmock:
+    specifier: ^2.3.5
+    version: 2.3.5
   husky:
     specifier: ^8.0.3
     version: 8.0.3
@@ -60,6 +66,14 @@ devDependencies:
     version: 5.1.6
 
 packages:
+
+  /@ava/typescript@4.1.0:
+    resolution: {integrity: sha512-1iWZQ/nr9iflhLK9VN8H+1oDZqe93qxNnyYUz+jTzkYPAHc5fdZXBrqmNIgIfFhWYXK5OaQ5YtC7OmLeTNhVEg==}
+    engines: {node: ^14.19 || ^16.15 || ^18 || ^20}
+    dependencies:
+      escape-string-regexp: 5.0.0
+      execa: 7.1.1
+    dev: true
 
   /@babel/code-frame@7.22.5:
     resolution: {integrity: sha512-Xmwn266vad+6DAqEB2A6V/CcZVp62BbwVmcOJc2RPuwih1kw02TjQvWVWlcKGbBPd+8/0V5DEkOcizRGYsspYQ==}
@@ -914,7 +928,7 @@ packages:
     engines: {node: '>= 4.0.0'}
     dev: true
 
-  /ava@5.3.1:
+  /ava@5.3.1(@ava/typescript@4.1.0):
     resolution: {integrity: sha512-Scv9a4gMOXB6+ni4toLuhAm9KYWEjsgBglJl+kMGI5+IVDt120CCDZyB5HNU9DjmLI2t4I0GbnxGLmmRfGTJGg==}
     engines: {node: '>=14.19 <15 || >=16.15 <17 || >=18'}
     hasBin: true
@@ -924,6 +938,7 @@ packages:
       '@ava/typescript':
         optional: true
     dependencies:
+      '@ava/typescript': 4.1.0
       acorn: 8.9.0
       acorn-walk: 8.2.0
       ansi-styles: 6.2.1
@@ -1848,6 +1863,11 @@ packages:
       esutils: 2.0.3
     optionalDependencies:
       source-map: 0.6.1
+    dev: true
+
+  /esmock@2.3.5:
+    resolution: {integrity: sha512-/Tt1goSUzBI3yKecJSgxBSoMMhGUtlhHA3PluCmdG/L6CRpzV8LmyGkStkdGcRdfHOzfDsqQioGcCFAdK11ZnA==}
+    engines: {node: '>=14.16.0'}
     dev: true
 
   /esprima@4.0.1:
