@@ -31,6 +31,9 @@ devDependencies:
   '@types/ini':
     specifier: ^1.3.31
     version: 1.3.31
+  '@types/mock-fs':
+    specifier: ^4.13.1
+    version: 4.13.1
   '@types/node':
     specifier: ^20.3.2
     version: 20.3.2
@@ -40,9 +43,6 @@ devDependencies:
   commitizen:
     specifier: ^4.3.0
     version: 4.3.0
-  esmock:
-    specifier: ^2.3.5
-    version: 2.3.5
   husky:
     specifier: ^8.0.3
     version: 8.0.3
@@ -52,6 +52,9 @@ devDependencies:
   lint-staged:
     specifier: ^13.2.3
     version: 13.2.3
+  mock-fs:
+    specifier: ^5.2.0
+    version: 5.2.0
   release-it:
     specifier: ^16.1.3
     version: 16.1.3
@@ -715,6 +718,12 @@ packages:
 
   /@types/minimist@1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
+    dev: true
+
+  /@types/mock-fs@4.13.1:
+    resolution: {integrity: sha512-m6nFAJ3lBSnqbvDZioawRvpLXSaPyn52Srf7OfzjubYbYX8MTUdIgDxQl0wEapm4m/pNYSd9TXocpQ0TvZFlYA==}
+    dependencies:
+      '@types/node': 20.3.2
     dev: true
 
   /@types/node@20.3.2:
@@ -1863,11 +1872,6 @@ packages:
       esutils: 2.0.3
     optionalDependencies:
       source-map: 0.6.1
-    dev: true
-
-  /esmock@2.3.5:
-    resolution: {integrity: sha512-/Tt1goSUzBI3yKecJSgxBSoMMhGUtlhHA3PluCmdG/L6CRpzV8LmyGkStkdGcRdfHOzfDsqQioGcCFAdK11ZnA==}
-    engines: {node: '>=14.16.0'}
     dev: true
 
   /esprima@4.0.1:
@@ -3329,6 +3333,11 @@ packages:
 
   /minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
+    dev: true
+
+  /mock-fs@5.2.0:
+    resolution: {integrity: sha512-2dF2R6YMSZbpip1V1WHKGLNjr/k48uQClqMVb5H3MOvwc9qhYis3/IWbj02qIg/Y8MDXKFF4c5v0rxx2o6xTZw==}
+    engines: {node: '>=12.0.0'}
     dev: true
 
   /ms@2.1.2:
