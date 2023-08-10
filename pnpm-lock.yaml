@@ -28,6 +28,9 @@ devDependencies:
   '@tsconfig/node16':
     specifier: ^16.1.0
     version: 16.1.0
+  '@types/capture-console':
+    specifier: ^1.0.1
+    version: 1.0.1
   '@types/ini':
     specifier: ^1.3.31
     version: 1.3.31
@@ -40,6 +43,9 @@ devDependencies:
   ava:
     specifier: ^5.3.1
     version: 5.3.1(@ava/typescript@4.1.0)
+  capture-console:
+    specifier: ^1.0.1
+    version: 1.0.1
   commitizen:
     specifier: ^4.3.0
     version: 4.3.0
@@ -708,6 +714,12 @@ packages:
     resolution: {integrity: sha512-cfwhqrdZEKS+Iqu1OPDwmKsOV/eo7q4sPhWzOXc1rU77nnPFV3+77yPg8uKQ2e8eir6mERCvrKnd+EGa4qo4bQ==}
     dev: true
 
+  /@types/capture-console@1.0.1:
+    resolution: {integrity: sha512-fJyZjVE5oBHEX80XGpINFd3OjS/RsogK5dxCmqqK6lTZtugTH+U7tnrjbNoNDRnwXE/JMp3D5T75ZyLECH1hfQ==}
+    dependencies:
+      '@types/node': 20.3.2
+    dev: true
+
   /@types/http-cache-semantics@4.0.1:
     resolution: {integrity: sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==}
     dev: true
@@ -845,6 +857,13 @@ packages:
     resolution: {integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==}
     dev: true
 
+  /argle@1.1.1:
+    resolution: {integrity: sha512-I7w1YZQR3zM8fQ6RCsX4jspaLb/gPqHt8s5v3FoBkE9sc2um71kdf+OAYfCGUGjYPT+ZPE7QmwgGDRcz7uVEUg==}
+    dependencies:
+      lodash.isfunction: 3.0.9
+      lodash.isnumber: 3.0.3
+    dev: true
+
   /argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
     dependencies:
@@ -874,6 +893,11 @@ packages:
   /array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
     engines: {node: '>=8'}
+    dev: true
+
+  /array-uniq@1.0.2:
+    resolution: {integrity: sha512-GVYjmpL05al4dNlKJm53mKE4w9OOLiuVHWorsIA3YVz+Hu0hcn6PtE3Ydl0EqU7v+7ABC4mjjWsnLUxbpno+CA==}
+    engines: {node: '>=0.10.0'}
     dev: true
 
   /array.prototype.map@1.0.5:
@@ -1175,6 +1199,14 @@ packages:
   /camelcase@7.0.1:
     resolution: {integrity: sha512-xlx1yCK2Oc1APsPXDL2LdlNP6+uu8OCDdhOBSVT279M/S+y75O30C2VuD8T2ogdePBBl7PfPF4504tnLgX3zfw==}
     engines: {node: '>=14.16'}
+    dev: true
+
+  /capture-console@1.0.1:
+    resolution: {integrity: sha512-gUPJV8XKeCK7//SLa6XhI2a9Y+FtatkjrebAcldL5ilGhvfvJXALiJO2lMqBf6vkqWvrZ9nm/vcxxiNNwMsSbw==}
+    dependencies:
+      argle: 1.1.1
+      lodash.isfunction: 3.0.9
+      randomstring: 1.1.5
     dev: true
 
   /cbor@8.1.0:
@@ -3089,6 +3121,10 @@ packages:
     resolution: {integrity: sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==}
     dev: true
 
+  /lodash.isnumber@3.0.3:
+    resolution: {integrity: sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw==}
+    dev: true
+
   /lodash.isplainobject@4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
     dev: true
@@ -3861,6 +3897,13 @@ packages:
   /quick-lru@5.1.1:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
+    dev: true
+
+  /randomstring@1.1.5:
+    resolution: {integrity: sha512-JNZlJOCHjifKhZszDT8UYYkcIUgpJyGDobFMOBPic2/9h+esM0m1JzySt8nk4PjrxQeeYkNzdVP3XPpQOCzjZA==}
+    hasBin: true
+    dependencies:
+      array-uniq: 1.0.2
     dev: true
 
   /rc@1.2.8:
