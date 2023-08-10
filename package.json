@@ -25,7 +25,7 @@
     ]
   },
   "lint-staged": {
-    "src/**/*.{ts,mts}": "pnpm run check"
+    "src/**/!(*test).{ts,mts}": "pnpm run check"
   },
   "tsup": {
     "clean": true,
@@ -42,12 +42,9 @@
       "ts": "module"
     },
     "nodeArguments": [
-      "--loader=ts-node/esm"
+      "--loader=ts-node/esm",
+      "--no-warnings"
     ]
-  },
-  "publishConfig": {
-    "publicPath": "/-/web/detail",
-    "registry": "https://npm.aihuishou.com/"
   },
   "keywords": [
     "npm",
