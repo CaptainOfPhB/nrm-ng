@@ -17,32 +17,32 @@ async function onInit() {
   onUpdate();
 }
 
-async function onList() {
-  const currentRegistry = await getCurrentRegistry();
+function onList() {
+  const currentRegistry = getCurrentRegistry();
   const { registries, registryNames } = getLocalRegistries();
   const dashLineLength = Math.max(...registryNames.map(nme => nme.length)) + 5;
 
   const messages = registryNames.map(name => {
     const registry = registries[name].registry;
-    const prefix = tryNormalizeUrl(registry) === tryNormalizeUrl(currentRegistry!) ? '-> ' : '   ';
+    const prefix = currentRegistry && tryNormalizeUrl(registry) === tryNormalizeUrl(currentRegistry!) ? '-> ' : '   ';
     return prefix + name + generateDashLine(name, dashLineLength) + registry;
   });
 
   print(messages);
 }
 
-async function onCurrent() {
-  const currentRegistry = await getCurrentRegistry();
-  print(currentRegistry);
+function onCurrent() {
+  const currentRegistry = getCurrentRegistry();
+  currentRegistry && print(currentRegistry);
 }
 
-async function onUse(name: string) {
+function onUse(name: string) {
   const { registries, registryNames } = getLocalRegistries();
   if (!registryNames.includes(name)) {
     exit(`The registry name ${name} is not existed.`);
   }
   const target = registries[name];
-  await setCurrentRegistry(target.registry);
+  setCurrentRegistry(target.registry);
 }
 
 function onAdd(name: string, url: string) {
@@ -53,7 +53,7 @@ function onAdd(name: string, url: string) {
   setLocalRegistries(registries);
 }
 
-async function onDelete(name: string) {
+function onDelete(name: string) {
   const { registries } = getLocalRegistries();
   delete registries[name];
   setLocalRegistries(registries);
@@ -66,7 +66,7 @@ async function onUpdate() {
 }
 
 async function onPing() {
-  print('This action may take a while, please wait...');
+  print('This action may take a while, please wait...\n');
 
   const { registries, registryNames } = getLocalRegistries();
 
@@ -94,14 +94,17 @@ async function onPing() {
   })
 
   const messages: string[] = [];
-  const currentRegistry = await getCurrentRegistry();
+  const currentRegistry = getCurrentRegistry();
 
   const length = Math.max(...registryNames.map(name => name.length)) + 3;
   results.forEach(({ registryUrl, registryName, ok, time }) => {
-    const prefix = registryUrl === currentRegistry ? '-> ' : '   ';
-    let suffix = time === fastestTime ? `${time} ms <- fastest` : `${time} ms`;
+    const prefix = currentRegistry && registryUrl === currentRegistry ? '-> ' : '   ';
+    let suffix = time + ' ms';
+    if (time === fastestTime) {
+      suffix += ' <- fastest';
+    }
     if (!ok) {
-      suffix += error(' failed');
+      suffix += error(' <- failed');
     }
     messages.push(prefix + registryName + generateDashLine(registryName, length) + suffix);
   });
