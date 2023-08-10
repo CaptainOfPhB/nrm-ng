@@ -1,25 +1,36 @@
-import fs from 'fs'
+import fs from 'fs';
 import test from 'ava'
 import mock from 'mock-fs'
-import { NRM_CONFIG_FILE_PATH } from './constants.mjs'
+import { interceptStdio } from 'capture-console';
+import commandFactory from './commandFactory.mjs';
+import { NPM_CONFIG_FILE_PATH, NRM_CONFIG_FILE_PATH } from './constants.mjs'
 
-import { exec } from 'node:child_process'
+
+
+const $ = (cmd: string) => commandFactory().parse(cmd.split(' '), { from: 'user' })
+const run = (fn: (...args: any[]) => void, ...rest: any[]) => interceptStdio(() => fn(...rest))
+const nrm_ng = {
+  ls: () => $('ls'),
+  init: () => $('init'),
+  ping: () => $('ping'),
+  current: () => $('current'),
+  rm: (name: string) => $(`rm ${name}`),
+  use: (name: string) => $(`use ${name}`),
+  add: (name: string, url: string) => $(`add ${name} ${url}`),
+}
+
+test.beforeEach(() => {
+  mock.restore()
+})
 
 test('nrs should show registry list', t => {
   mock({
-    [NRM_CONFIG_FILE_PATH]: '[npm]\nregistry=https://registry.npmjs.org/\n[taobao]\nregistry=https://registry.npm.taobao.org/\n'
+    [NRM_CONFIG_FILE_PATH]: '[npm]\nregistry=https://registry.npmjs.org/\n[taobao]\nregistry=https://registry.npm.taobao.org/\n',
+    [NPM_CONFIG_FILE_PATH]: 'registry=https://registry.npmjs.org/'
   })
 
-  // ✔️ read mocked file in current process
-  // 执行正常
-  const content = fs.readFileSync(NRM_CONFIG_FILE_PATH, 'utf-8');
-  console.log('🚀 -> content:\n', content);
-
-  // ❌ read mocked file in child process
-  // 直接跳过了这里
-  exec('ts-node-esm src/index.mts ls', (err, stdout, stderr) => {
-    console.log('🚀 -> exec -> stdout:', stdout);
-  })
+  const { stdout } = run(nrm_ng.add, 'rere', 'http://baidu.com');
+  console.log('🚀 -> stdout:', stdout);
 
   t.pass();
 })
