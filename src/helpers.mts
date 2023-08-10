@@ -1,19 +1,23 @@
 import fs from 'fs';
 import ini from 'ini';
 import fetch from 'node-fetch';
-import { run, error, exit, print } from './utils.mjs';
-import { REMOTE_REGISTRY_URL, NRM_CONFIG_FILE_PATH } from './constants.mjs';
+import { error, exit, print } from './utils.mjs';
+import { REMOTE_REGISTRY_URL, NRM_CONFIG_FILE_PATH, NPM_CONFIG_FILE_PATH } from './constants.mjs';
 
-async function setCurrentRegistry(registry: string) {
-  return run(`npm set registry ${registry}`);
+function setCurrentRegistry(registry: string) {
+  const npmrc = read<Record<string, unknown>>(NPM_CONFIG_FILE_PATH);
+  const content = npmrc || {};
+  content.registry = registry;
+  write(NPM_CONFIG_FILE_PATH, content);
 }
 
-async function getCurrentRegistry() {
-  return run(`npm get registry`);
+function getCurrentRegistry() {
+  const content = read<{ registry: string }>(NPM_CONFIG_FILE_PATH);
+  return content?.registry;
 }
 
 function getLocalRegistries() {
-  const registries = read() || {};
+  const registries = read<Registry>(NRM_CONFIG_FILE_PATH) || {};
   const [registryNames, registryUrls] = Object.entries(registries).reduce<[string[], string[]]>(
     ([names, urls], [key, value]) => ([names.concat(key), urls.concat(value.registry)]),
     [[], []],
@@ -22,7 +26,7 @@ function getLocalRegistries() {
 }
 
 function setLocalRegistries(registries: Registry) {
-  write(registries);
+  write(NRM_CONFIG_FILE_PATH, registries);
 }
 
 async function getRemoteRegistries() {
@@ -35,25 +39,25 @@ async function getRemoteRegistries() {
   }
 }
 
-function read() {
+function read<T = unknown>(filepath: string) {
   try {
-    const iniContent = fs.readFileSync(NRM_CONFIG_FILE_PATH, 'utf-8');
+    const iniContent = fs.readFileSync(filepath, 'utf-8');
     const jsonContent = ini.parse(iniContent);
-    return jsonContent as Registry;
+    return jsonContent as T;
   } catch (e) {
     if (!isNrmrcExist()) {
       print('Did you forget to run \'nrm init\' to initialize nrm-ng?\n');
     }
-    print(error(`Failed to read config file '${NRM_CONFIG_FILE_PATH}'.`));
+    print(error(`Failed to read config file '${filepath}'.`));
     exit((e as Error).message);
   }
 }
 
-function write(content: Registry) {
+function write(filepath: string, content: unknown) {
   try {
-    fs.writeFileSync(NRM_CONFIG_FILE_PATH, ini.encode(content));
+    fs.writeFileSync(filepath, ini.encode(content));
   } catch (e) {
-    print(error(`Failed to write config file '${NRM_CONFIG_FILE_PATH}'.`));
+    print(error(`Failed to write config file '${filepath}'.`));
     exit((e as Error).message);
   }
 }
