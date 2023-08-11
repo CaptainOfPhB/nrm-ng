@@ -1,15 +1,12 @@
-import fs from 'fs';
 import test from 'ava'
 import mock from 'mock-fs'
-import { interceptStdio } from 'capture-console';
-import commandFactory from './commandFactory.mjs';
+import NrmNg from './nrmng.mjs'
+import { interceptStdio } from 'capture-console'
 import { NPM_CONFIG_FILE_PATH, NRM_CONFIG_FILE_PATH } from './constants.mjs'
 
-
-
-const $ = (cmd: string) => commandFactory().parse(cmd.split(' '), { from: 'user' })
+const $ = (input: string) => NrmNg().parse(input.split(' '), { from: 'user' })
 const run = (fn: (...args: any[]) => void, ...rest: any[]) => interceptStdio(() => fn(...rest))
-const nrm_ng = {
+const nrmng = {
   ls: () => $('ls'),
   init: () => $('init'),
   ping: () => $('ping'),
@@ -29,8 +26,8 @@ test('nrs should show registry list', t => {
     [NPM_CONFIG_FILE_PATH]: 'registry=https://registry.npmjs.org/'
   })
 
-  const { stdout } = run(nrm_ng.add, 'rere', 'http://baidu.com');
-  console.log('🚀 -> stdout:', stdout);
+  const { stdout } = run(nrmng.add, 'rere', 'http://baidu.com')
+  console.log('🚀 -> stdout:', stdout)
 
   t.pass();
 })

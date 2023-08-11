@@ -3,56 +3,56 @@ import * as actions from './actions.mjs'
 import { createCommand } from 'commander'
 import packageJson from '../package.json' assert { type: "json" }
 
-function commandFactory() {
-  const program = createCommand()
+function NrmNg() {
+  const cli = createCommand()
 
-  program.version(packageJson.version, '-v, --version');
+  cli.version(packageJson.version, '-v, --version');
 
-  program
+  cli
     .name('nrm')
     .description('A cli tool to easy switch npm registry')
 
-  program
+  cli
     .command('init')
     .action(actions.onInit)
     .description('Initialize nrm-ng')
 
-  program
+  cli
     .command('current')
     .action(actions.onCurrent)
     .description('Show the registry currently in use')
 
-  program
+  cli
     .command('ls')
     .action(actions.onList)
     .description('List all local registries')
 
-  program
+  cli
     .command('use <name>')
     .action(actions.onUse)
     .description('Switch registry')
 
-  program
+  cli
     .command('add <name> <registry>')
     .action(actions.onAdd)
     .description('Add a registry')
 
-  program
+  cli
     .command('rm <name>')
     .action(actions.onDelete)
     .description('Remove a registry')
 
-  program
+  cli
     .command('ping')
     .action(actions.onPing)
     .description('Ping registry response speed')
 
-  program
+  cli
     .command('update')
     .action(actions.onUpdate)
     .description('Keep local registry list up to date with remote')
 
-  return program
+  return cli
 }
 
-export default commandFactory
+export default NrmNg

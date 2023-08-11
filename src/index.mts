@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import commandFactory from './commandFactory.mjs'
+import NrmNg from './nrmng.mjs'
 
-const program = commandFactory()
+const nrmng = NrmNg()
 
 if (process.argv.length > 2) {
-  program.parse(process.argv, { from: 'node' })
+  nrmng.parse(process.argv, { from: 'node' })
 } else {
-  program.help()
+  nrmng.help()
 }
