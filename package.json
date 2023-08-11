@@ -12,7 +12,7 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "is-ci || husky install",
     "nrm": "NODE_OPTIONS=\"--no-warnings\" NODE_ENV=development ts-node-esm src/index.mts",
-    "check": "ts-node-esm --typeCheck",
+    "check": "NODE_OPTIONS=--no-warnings ts-node-esm --typeCheck",
     "test": "ava",
     "test:coverage": "ava",
     "build": "tsup",
@@ -23,9 +23,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "lint-staged": {
-    "src/**/!(*test).{ts,mts}": "pnpm run check"
   },
   "tsup": {
     "clean": true,
