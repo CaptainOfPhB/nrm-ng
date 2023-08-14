@@ -13,7 +13,7 @@
     "prepare": "is-ci || husky install",
     "nrm": "NODE_OPTIONS=\"--no-warnings\" NODE_ENV=development ts-node-esm src/index.mts",
     "check": "NODE_OPTIONS=--no-warnings ts-node-esm --typeCheck",
-    "test": "ava",
+    "test": "ava -s --watch",
     "test:coverage": "ava",
     "build": "tsup",
     "build:link": "pnpm run build && pnpm link --global",
