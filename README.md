@@ -1,11 +1,11 @@
 # nrm-ng
 
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-
 The NPM registry management, the next generation of [nrm](https://github.com/Pana/nrm).
 
 ## Why `nrm-ng`?
 
+- **Fast and easy to use**.
+- **More minimum package size**. `nrm-ng` removes a bunch of useless functions from `nrm` that were built into `npm`.
 - **Registry is always up-to-date**. The internal registry list is hosted on [Deno Deploy](https://deno.com/deploy), so if there are any changes to the remote registry list, you can conveniently keep the local registry list up-to-date with the `nrm update` command instead of installing a new version.
 
 ## Installation
@@ -22,26 +22,35 @@ pnpm add -g nrm-ng
 ## Usage
 
 ```bash
+# init nrm-ng
+nrm-ng init
+
 # list registry
-nrm ls
+nrm-ng ls
 
 # show the current registry
-nrm current
+nrm-ng current
 
 # add registry
-nrm add gh https://npm.pkg.github.com
+nrm-ng add gh https://npm.pkg.github.com
 
 # switch registry
-nrm use gh
+nrm-ng use gh
 
 # remove registry
-nrm rm gh
+nrm-ng rm gh
 
 # ping registry response speed
-nrm ping
+nrm-ng ping
 
 # keep the registry up-to-date
-nrm update
+nrm-ng update
+```
+
+If you are using `nrm` and want to switch to `nrm-ng`, set up an alias in your `.bashrc` or `.zshrc` file.
+
+```bash
+alias nrm='nrm-ng'
 ```
 
 ## Supported registry
@@ -76,16 +85,6 @@ Refer to [`registry.json`](./registry.json).
   }
 }
 ```
-
-<!-- 
-
-TODO
-
-- Compatible with `nrm`
-- Add `nrm migrate` command for `nrm` user
-- Loading when ping registry
-
--->
 
 ## License
 
