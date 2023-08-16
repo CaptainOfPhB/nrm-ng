@@ -1,4 +1,4 @@
-import {
+const {
   isNrmrcExist,
   tryNormalizeUrl,
   getCurrentRegistry,
@@ -6,9 +6,9 @@ import {
   getLocalRegistries,
   setLocalRegistries,
   getRemoteRegistries,
-} from './helpers.mjs';
-import fetch from 'node-fetch';
-import { generateDashLine, print, exit, error } from './utils.mjs';
+} = require('./helpers');
+const fetch = require('node-fetch');
+const { generateDashLine, print, exit, error } = require('./utils');
 
 async function onInit() {
   if (!isNrmrcExist()) {
@@ -24,7 +24,7 @@ function onList() {
 
   const messages = registryNames.map(name => {
     const registry = registries[name].registry;
-    const prefix = currentRegistry && tryNormalizeUrl(registry) === tryNormalizeUrl(currentRegistry!) ? '-> ' : '   ';
+    const prefix = currentRegistry && tryNormalizeUrl(registry) === tryNormalizeUrl(currentRegistry) ? '-> ' : '   ';
     return prefix + name + generateDashLine(name, dashLineLength) + registry;
   });
 
@@ -36,7 +36,7 @@ function onCurrent() {
   currentRegistry && print(currentRegistry);
 }
 
-function onUse(name: string) {
+function onUse(name) {
   const { registries, registryNames } = getLocalRegistries();
   if (!registryNames.includes(name)) {
     exit(`The registry name ${name} is not existed.`);
@@ -45,15 +45,15 @@ function onUse(name: string) {
   setCurrentRegistry(target.registry);
 }
 
-function onAdd(name: string, url: string) {
+function onAdd(name, url) {
   const { registries } = getLocalRegistries();
-  const normalizedUrl = tryNormalizeUrl(url)!;
+  const normalizedUrl = tryNormalizeUrl(url);
   registries[name] = registries[name] || {};
   registries[name].registry = normalizedUrl;
   setLocalRegistries(registries);
 }
 
-function onDelete(name: string) {
+function onDelete(name) {
   const { registries } = getLocalRegistries();
   delete registries[name];
   setLocalRegistries(registries);
@@ -66,7 +66,7 @@ async function onUpdate() {
 }
 
 async function onPing() {
-  print('This action may take a while, please wait...\n');
+  print('This action may take a while, please wait...');
 
   const { registries, registryNames } = getLocalRegistries();
 
@@ -93,7 +93,7 @@ async function onPing() {
     }
   })
 
-  const messages: string[] = [];
+  const messages = [];
   const currentRegistry = getCurrentRegistry();
 
   const length = Math.max(...registryNames.map(name => name.length)) + 3;
@@ -112,7 +112,7 @@ async function onPing() {
   print(messages);
 }
 
-export {
+module.exports = {
   onUse,
   onAdd,
   onInit,

@@ -1,12 +1,12 @@
 .idea
+.vscode
 
 .DS_Store
 
 lib
 dist
+coverage
 node_modules
 
 *.log
 *.error
-
-.nrmrc
