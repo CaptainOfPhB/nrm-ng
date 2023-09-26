@@ -1,6 +1,6 @@
 const path = require('path');
 
-const isDEV= process.env.NODE_ENV === 'dev';
+const isDEV = process.env.NODE_ENV === 'dev';
 
 const REMOTE_REGISTRY_URL = 'https://nrm-ng-registry.deno.dev/';
 

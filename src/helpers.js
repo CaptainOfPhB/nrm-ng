@@ -74,8 +74,6 @@ function tryNormalizeUrl(url) {
 }
 
 module.exports = {
-  read,
-  write,
   isNrmrcExist,
   tryNormalizeUrl,
   setCurrentRegistry,

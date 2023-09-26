@@ -62,7 +62,7 @@ function onDelete(name) {
 async function onUpdate() {
   const remoteRegistryList = await getRemoteRegistries();
   const { registries } = getLocalRegistries();
-  setLocalRegistries({ ...remoteRegistryList, ...registries, });
+  setLocalRegistries({ ...remoteRegistryList, ...registries });
 }
 
 async function onPing() {
@@ -91,7 +91,7 @@ async function onPing() {
     if (it.ok && it.time < fastestTime) {
       fastestTime = it.time;
     }
-  })
+  });
 
   const messages = [];
   const currentRegistry = getCurrentRegistry();
