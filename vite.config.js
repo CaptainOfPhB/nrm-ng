@@ -1,4 +1,6 @@
-import { defineConfig } from 'vite'
+import path from 'path';
+import { defineConfig } from 'vite';
+import shebang from 'rollup-plugin-preserve-shebang';
 
 export default defineConfig({
   build: {
@@ -14,5 +16,11 @@ export default defineConfig({
         'src/utils.js',
       ],
     },
-  }
-})
+  },
+  plugins: [
+    shebang({
+      shebang: '#!/usr/bin/env node',
+      entry: path.resolve(process.cwd(), 'src/index.js'),
+    }),
+  ],
+});
