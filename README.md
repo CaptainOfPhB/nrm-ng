@@ -4,7 +4,7 @@ The NPM registry management, the next generation of [nrm](https://github.com/Pan
 
 ## Why `nrm-ng`?
 
-- **Fast and easy to use**.
+- **Fast and easy to use**. Fully compatible with `nrm`, you can easily and smoothly migrate to `nrm-ng`. 
 - **More minimum package size**. `nrm-ng` removes a bunch of useless functions from `nrm` that were built into `npm`.
 - **Registry is always up-to-date**. The internal registry list is hosted on [Deno Deploy](https://deno.com/deploy), so if there are any changes to the remote registry list, you can conveniently keep the local registry list up-to-date with the `nrm update` command instead of installing a new version.
 
