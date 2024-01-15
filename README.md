@@ -86,6 +86,10 @@ Refer to [`registry.json`](./registry.json).
 }
 ```
 
+## Todos
+
+- [ ] `nrm-ng touch` to create a `.npmrc` file under current/project dir.
+
 ## License
 
 [MIT](LICENSE)
